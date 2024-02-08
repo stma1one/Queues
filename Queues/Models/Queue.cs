@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructureCore
+namespace Queues.Models
 {
     public class Queue<T>
     {
@@ -10,8 +10,8 @@ namespace DataStructureCore
 
         public Queue()
         {
-            this.first = null;
-            this.last = null;
+            first = null;
+            last = null;
         }
 
         public void Insert(T x)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructureCore
+namespace Queues.Models
 {
     /* The class Node<T> **/
     public class Node<T>
@@ -12,7 +12,7 @@ namespace DataStructureCore
         public Node(T value)
         {
             this.value = value;
-            this.next = null;
+            next = null;
         }
 
         /* Constructor  - returns a Node with "value" as value and its successesor is "next" **/
@@ -25,19 +25,19 @@ namespace DataStructureCore
         /* Returns the Node "value" **/
         public T GetValue()
         {
-            return this.value;
+            return value;
         }
 
         /* Returns the Node "next" Node **/
         public Node<T> GetNext()
         {
-            return this.next;
+            return next;
         }
 
         /* Return if the current Node Has successor **/
         public bool HasNext()
         {
-            return (this.next != null);
+            return next != null;
         }
 
         /* Set the value attribute to be "value" **/
