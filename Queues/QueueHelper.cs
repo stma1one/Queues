@@ -129,5 +129,17 @@ namespace Queues
                 q.Insert(temp.Remove());
             }
         }
+
+        public static Queue<int> OrderAsc(Queue<int> q)
+        {
+            Queue<int> temp = Copy(q);
+            Queue<int> result = new Queue<int>();
+            while(!temp.IsEmpty())
+            {
+                result.Insert(FindMin(temp));
+                RemoveMinFromQueue(temp);
+            }
+            return result;
+        }
     }
 }
