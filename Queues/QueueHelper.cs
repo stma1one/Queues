@@ -143,14 +143,43 @@ namespace Queues
         }
         //O(n)+O{1)+n*(O(n)+O(n))===>O(n^2)
 
+        public static void InsertToMiddle<T>(Queue<T> q, T value)
+        {
+            Queue<T> temp = new Queue<T>();//תור עזר    
+            int count = Count(q);//מספר האיברים בתור
+            for (int i = 0; i < count / 2; i++)//נכניס חצי מאיברי התור לתור העזר
+                temp.Insert(q.Remove());
+            temp.Insert(value);//נכניס את האיבר החדש לתור העזר (בדיוק באמצע)
+            while (!q.IsEmpty())
+                temp.Insert(q.Remove());//נעביר את החצי השני לתור העזר
+            while (!temp.IsEmpty())
+                q.Insert(temp.Remove());//נחזיר את כל האיברים לתור המקורי
+        }
+        public static int CountWithDummy(Queue<int> q) 
+        {
+            //רק אם ידוע לנו משהו על החוקיות של הערכים בתור
+            //נוכל להשתמש באפשרות זו
+
+            
+            int counter = 0;
+            q.Insert(-1);//ידוע שכל הערכים בתור גדולים מ-0
+            while(q.Head()!=-1)//נדע שהגענו לסוף התור אם הגענו לערך הלא חוקי שהכנסנו
+            {
+                counter++;
+                q.Insert(q.Remove());//נדחוף את האיבר שהוצאנו בצורה מעגלית (כלומר לסוף התור)
+            }
+            q.Remove();//לא לשכוח להעיף את הערך הלא חוקי שנמצא בראש התור
+            return counter;
+
+        }
         public static int CountRecursive(Queue<int> q,Queue<int> temp)
         {
-            if (q.IsEmpty())
+            if (q.IsEmpty())//אם התור ריק נחזיר 0 - תנאי עצירה
                 return 0;
-            temp.Insert(q.Remove());
-            int result = 1 + CountRecursive(q,temp);
-            q.Insert(temp.Remove());
-            return result;
+            temp.Insert(q.Remove());//נשמור בתור העזר את הערך שהוצאנו
+            int result = 1 + CountRecursive(q,temp);//נספור 1 + כמות האיברים בשאר התור
+            q.Insert(temp.Remove());//נחזיר את התור למצבו המקורי בחזור
+            return result;//נחזיר את המונה שלנו
 
             //עבור התור 
             //   1->5->6->7    7 ראש התור
