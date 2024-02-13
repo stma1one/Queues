@@ -132,14 +132,28 @@ namespace Queues
 
         public static Queue<int> OrderAsc(Queue<int> q)
         {
-            Queue<int> temp = Copy(q);
-            Queue<int> result = new Queue<int>();
-            while(!temp.IsEmpty())
+            Queue<int> temp = Copy(q);//O(n)
+            Queue<int> result = new Queue<int>();//O(1)
+            while(!temp.IsEmpty()) // n
             {
-                result.Insert(FindMin(temp));
-                RemoveMinFromQueue(temp);
+                result.Insert(FindMin(temp));//O(n)
+                RemoveMinFromQueue(temp);//O(n)
             }
             return result;
+        }
+        //O(n)+O{1)+n*(O(n)+O(n))===>O(n^2)
+
+        public static int CountRecursive(Queue<int> q,Queue<int> temp)
+        {
+            if (q.IsEmpty())
+                return 0;
+            temp.Insert(q.Remove());
+            int result = 1 + CountRecursive(q,temp);
+            q.Insert(temp.Remove());
+            return result;
+
+            //עבור התור 
+            //   1->5->6->7    7 ראש התור
         }
     }
 }
